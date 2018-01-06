@@ -46,7 +46,6 @@ let triangle:Entity;
     (<MeshFilter>triangle.getComponent<MeshFilter>(MeshFilter)).RenderMesh = triangleMesh;
 
    requestAnimationFrame(gameLoop);
-   setupDebugControls();
 })();
 
 
@@ -59,25 +58,25 @@ function gameLoop(){
     requestAnimationFrame(gameLoop);
 }
 
-function setupDebugControls(){
-    const XSlider:HTMLElement = document.querySelector("#XSlider") as HTMLElement;
-    const YSlider:HTMLElement = document.querySelector("#YSlider") as HTMLElement;
-    XSlider.setAttribute("min", "0");
-    XSlider.setAttribute("max", (window.innerWidth).toString());
-    YSlider.setAttribute("min", "0");
-    YSlider.setAttribute("max", (window.innerHeight).toString());
+// function setupDebugControls(){
+//     const XSlider:HTMLElement = document.querySelector("#XSlider") as HTMLElement;
+//     const YSlider:HTMLElement = document.querySelector("#YSlider") as HTMLElement;
+//     XSlider.setAttribute("min", "0");
+//     XSlider.setAttribute("max", (window.innerWidth).toString());
+//     YSlider.setAttribute("min", "0");
+//     YSlider.setAttribute("max", (window.innerHeight).toString());
     
-    XSlider.oninput = event => {
-                 const val = Number((<HTMLInputElement>event.target).value);
-                 triangle.transform.Translate = new Vector3D(val, triangle.transform.Translate.y , triangle.transform.Translate.z);
-          };
-    YSlider.oninput = event => {
-                 const val = Number((<HTMLInputElement>event.target).value);
-                 triangle.transform.Translate = new Vector3D(triangle.transform.Translate.x, val , triangle.transform.Translate.z);
-          };
+//     XSlider.oninput = event => {
+//                  const val = Number((<HTMLInputElement>event.target).value);
+//                  triangle.transform.Translate = new Vector3D(val, triangle.transform.Translate.y , triangle.transform.Translate.z);
+//           };
+//     YSlider.oninput = event => {
+//                  const val = Number((<HTMLInputElement>event.target).value);
+//                  triangle.transform.Translate = new Vector3D(triangle.transform.Translate.x, val , triangle.transform.Translate.z);
+//           };
 
-    //triangleMesh
-}
+//     //triangleMesh
+// }
 
 
 
