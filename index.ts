@@ -69,11 +69,11 @@ function setupDebugControls(){
     
     XSlider.oninput = event => {
                  const val = Number((<HTMLInputElement>event.target).value);
-                 triangle.transform.Translate = new Vector3D(val, triangle.transform.Translate.y , triangle.transform.Translate.z);
+               //  triangle.transform.Translate = new Vector3D(val, triangle.transform.Translate.y , triangle.transform.Translate.z);
           };
     YSlider.oninput = event => {
                  const val = Number((<HTMLInputElement>event.target).value);
-                 triangle.transform.Translate = new Vector3D(triangle.transform.Translate.x, val , triangle.transform.Translate.z);
+//                 triangle.transform.Translate = new Vector3D(triangle.transform.Translate.x, val , triangle.transform.Translate.z);
           };
 
     //triangleMesh
