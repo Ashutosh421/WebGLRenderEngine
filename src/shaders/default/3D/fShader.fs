@@ -1,5 +1,7 @@
 #version 300 es
 
+precision mediump float;
+
 //Varying 
 in vec4 vertColor;
 

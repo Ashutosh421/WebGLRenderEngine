@@ -13,7 +13,7 @@ export class MeshRenderer implements EntityComponent {
     constructor(entity:Entity){
         this.material = new Material();
         this.meshFilter = entity.getComponent<MeshFilter>(MeshFilter) as MeshFilter;
-        this.shaderProgram = (this.material.MShader).ShaderProgram;
+        //this.shaderProgram = (this.material.MShader).ShaderProgram;
     }
 
     public addMaterial(material:Material){}
@@ -28,14 +28,14 @@ export class MeshRenderer implements EntityComponent {
     public onEnabled(): void {}
 
     public onUpdate(): void {
-        this.material.bind();
-        this.meshFilter.bind();
-        //Temp Code Here
-        const resolutionURL = this.getUniformLocation("u_resolution");
-        gl.uniform2f(resolutionURL,DisplaySize.x , DisplaySize.y);
-        gl.drawArrays(gl.TRIANGLES , 0 , this.meshFilter.RenderMesh.VPositionCount);
-        this.meshFilter.unbind();
-        //this.material.unbind();
+        if(this.material.MShader.ShaderProgram)
+        {
+            this.material.bind();
+            this.meshFilter.bind();
+            gl.drawArrays(gl.TRIANGLES , 0 , this.meshFilter.RenderMesh.VPositionCount);
+            this.meshFilter.unbind();
+            this.material.unbind();
+        }
     }
 
     public onDisabled(): void {}

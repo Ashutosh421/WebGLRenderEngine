@@ -1,4 +1,5 @@
 import { gl } from "../WebGLContextManager";
+import { AsyncData } from "../Utils/AsyncData";
 
 export class Shader {
 
@@ -8,59 +9,16 @@ export class Shader {
     //Shader Program Assets
     private vertexShader: WebGLShader;
     private fragmentShader: WebGLShader;
-    private shaderProgram: WebGLProgram;
+    private shaderProgram: WebGLProgram | null;
     private programReady: boolean = false;
 
     private gl: WebGL2RenderingContext | WebGLRenderingContext;
+    private shaderReady:boolean = false;
 
-    constructor(vertexShaderLink:string = "", fragmentShaderLink:string = "") {
+    constructor(vertexShaderLink:string = "./src/shaders/default/3D/vShader.vs", fragmentShaderLink:string = "./src/shaders/default/3D/fShader.fs") {
         this.gl = gl as WebGL2RenderingContext | WebGLRenderingContext;
+        this.shaderProgram = null;
         this.retrieveShaderSource(vertexShaderLink , fragmentShaderLink);
-
-        //Temp Code
-        this.vertexShaderSource =
-            `#version 300 es
-
-            in vec3 vertexPosition;
-            in vec4 vertexColor;
-
-            //Uniforms
-            uniform vec3 translation;
-            uniform vec2 u_resolution;
-
-            out vec4 outColor;
-
-            void main(){
-                // gl_Position = vec4(vertexPosition , 1.0) + vec4(translation , 1.0);
-                // gl_Position = gl_Position / vec4(u_resolution , 1.0f , 1.0f);
-                //outColor = vertexColor;
-
-                vec3 position = vertexPosition + translation;  //Implemented Offset
-                position = position / vec3(u_resolution, 1.0); //0 to 1
-                position = position * 2.0; //0 to 2
-                position = position - 1.0; //-1 to 1
-
-                gl_Position = vec4(position.xy * vec2(1,-1) , 0 , 1);
-
-                outColor = vec4(u_resolution.x , u_resolution.y,u_resolution.x , 1);
-            }
-           `;
-
-        this.fragmentShaderSource =
-            `#version 300 es
-
-            precision mediump float;
-
-            in vec4 outColor;
-
-            out vec4 fragColor;
-
-            void main(){
-                fragColor = outColor;                
-            }
-            `;
-
-        this.prepareShaderProgram();
     }
 
     private prepareShaderProgram() {
@@ -91,10 +49,21 @@ export class Shader {
 
         const vertexShaderInfoLog: string = this.gl.getShaderInfoLog(this.vertexShader) as string;
         const fragmentShaderInfoLog: string = this.gl.getShaderInfoLog(this.fragmentShader) as string;
+        console.log(`Shader Program Ready`);
     }
 
     private retrieveShaderSource(vShader:string , fShader:string){
-
+        //TODO- Replace the Async Call Tree with modern javascript Asynchronous Requests
+        AsyncData.getDatafromURL(vShader, (response:string|null , error:string|null)=>
+            {
+                response ? this.vertexShaderSource = response : console.error(`Error Loading Vertex Shader!! ${error}`);
+                response && AsyncData.getDatafromURL(fShader, (response:string|null , error:string|null)=>{
+                        response ? this.fragmentShaderSource = response : console.error(`Error Loading Fragment Shader ${error}`);
+                        this.prepareShaderProgram();
+                    }
+                );
+            }
+        );
     }
 
     public bind(): void {
@@ -105,7 +74,7 @@ export class Shader {
         this.programReady && this.gl.useProgram(null);
     }
 
-    public get ShaderProgram(): WebGLProgram{
+    public get ShaderProgram(): WebGLProgram | null{
         return this.shaderProgram;
     }
 }

@@ -19,8 +19,17 @@ export function createWebGLContext(canvas:HTMLCanvasElement){
          (<HTMLCanvasElement>canvas).getContext("experimental-webgl", contextAttributes) as WebGLRenderingContext : 
          (<HTMLCanvasElement>canvas).getContext("webgl", contextAttributes) as WebGLRenderingContext : 
          (<HTMLCanvasElement>canvas).getContext("webgl2", contextAttributes) as WebGL2RenderingContext;
+ 
     gl.viewport(0 , 0 , canvas.width , canvas.height);
     DisplaySize = new Vector2D(canvas.width , canvas.height);
+
+    //TODO Move this to the correct place;
+    window.onresize = event => {
+        DisplaySize = new Vector2D(window.innerWidth , window.innerHeight);
+        gl.viewport(0 , 0 , DisplaySize.x , DisplaySize.y);
+        canvas.setAttribute("width",(DisplaySize.x).toString());
+        canvas.setAttribute("height",(DisplaySize.y).toString());
+    };
     return gl;
 }
 

@@ -16,7 +16,6 @@ export class Material {
     }   
 
     public get MShader():Shader{
-        console.log(`Material Shader ${this.shader}`);
         return this.shader;
     }
 }

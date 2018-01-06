@@ -7,9 +7,9 @@ export class TriangleMesh extends MeshData {
         super();
 
         this.vPositions = new Array<Vector3D>();
-        this.vPositions.push(new Vector3D( 0 , 80 , 0.0));
-        this.vPositions.push(new Vector3D( 20 , 0 , 0.0));
-        this.vPositions.push(new Vector3D( 40 , 80 , 0.0));
+        this.vPositions.push(new Vector3D( -0.5 , -0.5 , 0.0));
+        this.vPositions.push(new Vector3D( 0.0 , 0.5 , 0.0));
+        this.vPositions.push(new Vector3D( 0.5 , -0.5 , 0.0));
 
         this.colors = new Array<Color>();
         this.colors.push(new Color(1,0,0,1));

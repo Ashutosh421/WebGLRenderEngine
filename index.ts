@@ -13,7 +13,7 @@ import { TriangleMesh } from "./src/ts/RenderEngine/Primitives/TriangleMesh";
 import { Color } from "./src/ts/RenderEngine/3DMaths/Color";
 import { MeshData } from "./src/ts/RenderEngine/Mesh/MeshData";
 import { Vector3D } from "./src/ts/RenderEngine/3DMaths/Vector3D";
-
+import { AsyncData } from "./src/ts/RenderEngine/Utils/AsyncData";
 
 let scene1:Scene;
 
@@ -47,7 +47,6 @@ let triangle:Entity;
 
    requestAnimationFrame(gameLoop);
    setupDebugControls();
-   testAsynchronousShaderLoad();
 })();
 
 
@@ -58,28 +57,6 @@ function gameLoop(){
     scene1.update();
     
     requestAnimationFrame(gameLoop);
-}
-
-function testAsynchronousShaderLoad(){
-    console.log(`Loading Shaders Asynchronously`);
-    const vertexShaderLink = "./src/shaders/default/3D/fShader.fs";
-    const fragmentShaderLink = "./src/shaders/default/3D/vShader.fs";
-
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET' , vertexShaderLink , true);
-    xhr.onload = e =>{
-        if(xhr.readyState == 4){
-            if(xhr.status == 200){
-                console.log(`Request Successful ${xhr.responseText}`);
-            }
-            else{
-                console.log(`XHTTP Error!! ${xhr.statusText}`);
-            }
-        }
-    };
-
-    xhr.onerror = e => console.log(`XHTTP Error ${e.error}`);
-    xhr.send(null);
 }
 
 function setupDebugControls(){
