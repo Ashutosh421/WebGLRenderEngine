@@ -1,0 +1,38 @@
+{
+  "name": "webglportfolio",
+  "version": "1.0.0",
+  "description": "WebGl Showcase",
+  "main": "index.js",
+  "scripts": {
+    "build:dev": "run-p webpack:dev clear",
+    "build:prod": "run-p webpack:prod clear",
+    "webpack:dev": "webpack-dev-server --config webpack.dev.js",
+    "webpack:prod": "webpack --config webpack.common.js",
+    "clear": "cls"
+  },
+  "keywords": [
+    "webgl",
+    "glsl",
+    "rendering",
+    "graphics",
+    "programming"
+  ],
+  "author": "ashutosh@rautela",
+  "license": "ISC",
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.17",
+    "css-loader": "^0.28.8",
+    "html-webpack-plugin": "^2.30.1",
+    "node-sass": "^4.7.2",
+    "npm-run-all": "^4.1.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.1",
+    "ts-loader": "^3.2.0",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.10.0",
+    "webpack-merge": "^4.1.1"
+  },
+  "dependencies": {
+    "gl-matrix": "^2.4.0"
+  }
+}
