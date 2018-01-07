@@ -18,5 +18,6 @@ export class Scene{
     public addEntity(entity:Entity){
         this.entities.set(entity.ID , entity);
         entity.onInit();
+        console.log(`Adding ${entity.constructor.name} ${entity.ID} to scene`);
     }   
 }

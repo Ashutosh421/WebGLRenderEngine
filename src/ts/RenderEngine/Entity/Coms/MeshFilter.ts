@@ -2,10 +2,11 @@ import { EntityComponent } from "../EntityComponent";
 import { MeshData } from "../../Mesh/MeshData";
 import { Entity } from "../Entity";
 import { gl } from "../../WebGLContextManager";
+import { MeshData2D } from "../../Mesh/MeshData2D";
 
 export class MeshFilter implements EntityComponent {
 
-    private mesh: MeshData;
+    private mesh: MeshData|MeshData2D;
     private gl: WebGLRenderingContext | WebGL2RenderingContext;
 
     private vertexBuffer: WebGLBuffer;
@@ -70,11 +71,11 @@ export class MeshFilter implements EntityComponent {
     }
 
     //#region Properties
-    public set RenderMesh(mesh: MeshData) {
+    public set RenderMesh(mesh: MeshData|MeshData2D) {
         (this.mesh = mesh as MeshData) && this.prepareMeshBuffers();
     }
 
-    public get RenderMesh(): MeshData {
+    public get RenderMesh(): MeshData|MeshData2D {
         return this.mesh;
     }
     //#endregion

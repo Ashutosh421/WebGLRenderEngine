@@ -16,7 +16,6 @@ export class Triangle extends Entity{
         this.addComponent<MeshFilter>(MeshFilter);
         (<MeshFilter>this.getComponent<MeshFilter>(MeshFilter)).RenderMesh = this.meshData;
         this.addComponent<MeshRenderer>(MeshRenderer);
-        console.log(`Adding Triangle ${this.ID}`);
     }
     public onEnabled(): void {
         super.onEnabled();

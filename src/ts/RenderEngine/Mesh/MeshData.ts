@@ -5,10 +5,10 @@ import { Vector2D } from "../3DMaths/Vector2D";
 
 export class MeshData {
 
-    protected rVPositions:Float32Array;
-    protected rNormals: Float32Array;
-    protected rUvs: Float32Array;
-    protected rColors: Float32Array;
+    private rVPositions:Float32Array;
+    private rNormals: Float32Array;
+    private rUvs: Float32Array;
+    private rColors: Float32Array;
 
     protected vPositions:Array<Vector3D>;
     protected normals:Array<Vector3D>;

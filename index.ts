@@ -15,6 +15,7 @@ import { UIManager } from "./src/ts/UIHandler/UIManager";
 import { MenuBar } from "./src/ts/UIHandler/MenuBar/MenuBar";
 import { PrimitiveManager } from "./src/ts/RenderEngine/Primitives/PrimitiveManager";
 import { Triangle } from "./src/ts/RenderEngine/Primitives/Primitives3D/Triangle/Triangle";
+import { Triangle2D } from "./src/ts/RenderEngine/Primitives/Primitives2D/Triangle2D/Triangle2D";
 
 let scene1:Scene;
 
@@ -68,7 +69,7 @@ function initializeUI(){
     UIManager.Instance.init();
     (<MenuBar>UIManager.Instance.menuBar).on('click', element=> {
         if(element == "Triangle"){
-            const newEntity = PrimitiveManager.Instance.createPrimitive<Triangle>(Triangle) as Entity;
+            const newEntity = PrimitiveManager.Instance.createPrimitive<Triangle2D>(Triangle2D) as Entity;
             scene1.addEntity(newEntity);
         }
     });

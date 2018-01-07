@@ -15,7 +15,6 @@ export class TriangleMesh extends MeshData {
         this.colors.push(new Color(1,0,0,1));
         this.colors.push(new Color(0,1,0,1));
         this.colors.push(new Color(0,0,1,1));
-        this.colors.push(new Color(2,2,2,2));
         
 
         this.processMesh();
