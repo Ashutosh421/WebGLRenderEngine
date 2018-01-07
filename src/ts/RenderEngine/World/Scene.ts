@@ -16,6 +16,7 @@ export class Scene{
     }
 
     public addEntity(entity:Entity){
-        this.entities.set("entity" , entity);
+        this.entities.set(entity.ID , entity);
+        entity.onInit();
     }   
 }

@@ -1,6 +1,6 @@
-import { MeshData } from "../Mesh/MeshData";
-import { Vector3D } from "../3DMaths/Vector3D";
-import { Color } from "../3DMaths/Color";
+import { MeshData } from "../../../Mesh/MeshData";
+import { Vector3D } from "../../../3DMaths/Vector3D";
+import { Color } from "../../../3DMaths/Color";
 
 export class TriangleMesh extends MeshData {
     constructor() {

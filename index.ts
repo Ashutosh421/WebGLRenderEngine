@@ -1,6 +1,4 @@
 import { SceneManager } from "./src/ts/RenderEngine/World/SceneManager";
-import { Triangle } from "./src/ts/RenderEngine/Primitives/Triangle";
-
 import { EntityComponent } from './src/ts/RenderEngine/Entity/EntityComponent';
 import { MeshRenderer } from "./src/ts/RenderEngine/Entity/Coms/MeshRenderer";
 import { Entity } from "./src/ts/RenderEngine/Entity/Entity";
@@ -9,13 +7,14 @@ import { Transform } from "./src/ts/RenderEngine/Transform/Transform";
 import { MeshFilter } from "./src/ts/RenderEngine/Entity/Coms/MeshFilter";
 import "./src/styles/index.scss";
 import { gl , createWebGLContext} from "./src/ts/RenderEngine/WebGLContextManager";
-import { TriangleMesh } from "./src/ts/RenderEngine/Primitives/TriangleMesh";
 import { Color } from "./src/ts/RenderEngine/3DMaths/Color";
 import { MeshData } from "./src/ts/RenderEngine/Mesh/MeshData";
 import { Vector3D } from "./src/ts/RenderEngine/3DMaths/Vector3D";
 import { AsyncData } from "./src/ts/RenderEngine/Utils/AsyncData";
 import { UIManager } from "./src/ts/UIHandler/UIManager";
 import { MenuBar } from "./src/ts/UIHandler/MenuBar/MenuBar";
+import { PrimitiveManager } from "./src/ts/RenderEngine/Primitives/PrimitiveManager";
+import { Triangle } from "./src/ts/RenderEngine/Primitives/Primitives3D/Triangle/Triangle";
 
 let scene1:Scene;
 
@@ -38,18 +37,21 @@ let triangle:Entity;
     scene1 = SceneManager.Instance.createScene("Scene") as Scene;
     SceneManager.Instance.showScenes();
 
-    const triangleMesh:MeshData = new TriangleMesh();
+    //const triangleMesh:MeshData = new TriangleMesh();
 
-    triangle = new Triangle("1");
-    triangle.addComponent<MeshFilter>(MeshFilter);
-    triangle.addComponent<MeshRenderer>(MeshRenderer);
-    scene1.addEntity(triangle);
+    // triangle = new Triangle("1");
+    // triangle.addComponent<MeshFilter>(MeshFilter);
+    // triangle.addComponent<MeshRenderer>(MeshRenderer);
+    // scene1.addEntity(triangle);
 
-    (<MeshFilter>triangle.getComponent<MeshFilter>(MeshFilter)).RenderMesh = triangleMesh;
+    // (<MeshFilter>triangle.getComponent<MeshFilter>(MeshFilter)).RenderMesh = triangleMesh;
 
-   requestAnimationFrame(gameLoop);
-   setupDebugControls();
-   initializeUI();
+    requestAnimationFrame(gameLoop);
+    setupDebugControls();
+    initializeUI();
+
+    // const newEntity = PrimitiveManager.Instance.createPrimitive<Triangle>(Triangle);
+    // console.log(`New Entity Requested ${newEntity.constructor.name} ID: ${newEntity.ID}`);
 })();
 
 
@@ -64,7 +66,12 @@ function gameLoop(){
 
 function initializeUI(){
     UIManager.Instance.init();
-    (<MenuBar>UIManager.Instance.menuBar).on('click', element=> console.log(`You clicked on ${element}`));
+    (<MenuBar>UIManager.Instance.menuBar).on('click', element=> {
+        if(element == "Triangle"){
+            const newEntity = PrimitiveManager.Instance.createPrimitive<Triangle>(Triangle) as Entity;
+            scene1.addEntity(newEntity);
+        }
+    });
 }
 
 function setupDebugControls(){

@@ -41,6 +41,7 @@ $color-light-grey-2:rgb(29, 28, 28);
 
                     & > ul{
                         list-style: none;
+                        user-select: none;
 
                         & > li{
                             padding: 12px 20px;

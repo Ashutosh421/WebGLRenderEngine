@@ -34,18 +34,24 @@ export class Entity implements EntityComponent{
         this.components.forEach(component => component.onDestroy());
     }
 
-    public addComponent<T extends EntityComponent>( com: {new(entity:Entity):T} ){
+    public addComponent<T extends EntityComponent>( com: new(entity:Entity)=>T ){
         this.components.some(component => component.constructor.name === com.name) ? 
         console.log(`Component registration failed! ${com.name} already exist`) : this.components.push(new com(this))
     }
 
-    public removeComponent<T extends EntityComponent>( com: {new(entity:Entity):T} ){
+    public removeComponent<T extends EntityComponent>( com: new(entity:Entity)=>T ){
         const component = this.components.find(component=> component.constructor.name === com.name);
         component ? this.components.splice(this.components.indexOf(component) , 1) : console.log(`Failed!! No component of type ${com.name} exist`);
     }
 
-    public getComponent<T extends EntityComponent>( com: {new(entity:Entity):T}):EntityComponent|null{
+    public getComponent<T extends EntityComponent>( com: new(entity:Entity)=>T):EntityComponent|null{
         return this.components.find(component => component.constructor.name === com.name) as EntityComponent|null;
     }
+
+    //#region Properties
+    public get ID():string{
+        return this.uniqueID;
+    }
+    //#endregion
 }
 
