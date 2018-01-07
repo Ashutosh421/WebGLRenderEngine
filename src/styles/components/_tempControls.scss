@@ -1,13 +1,14 @@
 $controlBgColor: #d5d5db;
 
 #transformControl{
-    position: fixed;
-    background: $controlBgColor;
+    position: absolute;
+    background: #d5d5db;
     z-index: 1;
     right: 10px;
-    top: 10px;
+    top: 44px;
     width: 200px;
     height: 100px;
+    opacity: 0.7;
 
     & .positionSlider{
         padding: 10px;

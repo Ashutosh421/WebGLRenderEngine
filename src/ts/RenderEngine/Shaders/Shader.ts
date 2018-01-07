@@ -32,10 +32,10 @@ export class Shader {
 
         //Compiling Shaders
         this.gl.compileShader(this.vertexShader);
-        this.gl.getShaderParameter(this.vertexShader, gl.COMPILE_STATUS) ? console.log(`Vertex Shader successfully compiled `) : console.log(`Vertex Shader compilation failed ${this.gl.getShaderInfoLog(this.vertexShader)}`);
+        !this.gl.getShaderParameter(this.vertexShader, gl.COMPILE_STATUS) && console.log(`Vertex Shader compilation failed ${this.gl.getShaderInfoLog(this.vertexShader)}`);
 
         this.gl.compileShader(this.fragmentShader);
-        this.gl.getShaderParameter(this.fragmentShader, gl.COMPILE_STATUS) ? console.log(`Fragment Shader successfully compiled`) : console.log(`Fragment Shader compilation failed ${this.gl.getShaderInfoLog(this.fragmentShader)}`);
+        !this.gl.getShaderParameter(this.fragmentShader, gl.COMPILE_STATUS) && console.log(`Fragment Shader compilation failed ${this.gl.getShaderInfoLog(this.fragmentShader)}`);
 
         //Create the final shader program
         this.shaderProgram = this.gl.createProgram() as WebGLProgram;
@@ -43,13 +43,13 @@ export class Shader {
         this.gl.attachShader(this.shaderProgram, this.fragmentShader);
 
         this.gl.linkProgram(this.shaderProgram);
-        this.gl.getProgramParameter(this.shaderProgram, gl.LINK_STATUS) ? console.log(`Shader Program linked successfully`) : console.log(`Shader Program linking failed ${this.gl.getProgramInfoLog(this.shaderProgram)}`);
+        !this.gl.getProgramParameter(this.shaderProgram, gl.LINK_STATUS) && console.log(`Shader Program linking failed ${this.gl.getProgramInfoLog(this.shaderProgram)}`);
         this.gl.validateProgram(this.shaderProgram);
-        this.gl.getProgramParameter(this.shaderProgram, gl.VALIDATE_STATUS) ? (console.log(`Shader Program validated successfully`), this.programReady = true) : console.log(`Shader Program validation failed ${this.gl.getProgramInfoLog(this.shaderProgram)}`);
+        this.gl.getProgramParameter(this.shaderProgram, gl.VALIDATE_STATUS) ? this.programReady = true : console.log(`Shader Program validation failed ${this.gl.getProgramInfoLog(this.shaderProgram)}`);
 
         const vertexShaderInfoLog: string = this.gl.getShaderInfoLog(this.vertexShader) as string;
         const fragmentShaderInfoLog: string = this.gl.getShaderInfoLog(this.fragmentShader) as string;
-        console.log(`Shader Program Ready`);
+        // console.log(`Shader Program Ready`);
     }
 
     private retrieveShaderSource(vShader:string , fShader:string){

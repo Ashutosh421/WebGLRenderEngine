@@ -13,7 +13,6 @@ export class MeshRenderer implements EntityComponent {
     constructor(entity:Entity){
         this.material = new Material();
         this.meshFilter = entity.getComponent<MeshFilter>(MeshFilter) as MeshFilter;
-        //this.shaderProgram = (this.material.MShader).ShaderProgram;
     }
 
     public addMaterial(material:Material){}

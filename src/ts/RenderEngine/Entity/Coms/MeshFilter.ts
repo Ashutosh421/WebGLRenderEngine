@@ -17,7 +17,6 @@ export class MeshFilter implements EntityComponent {
     }
 
     private prepareMeshBuffers() {
-        console.log(`Prepare the Buffers`);
         //Create the first Vertex Buffer
         this.vertexBuffer = gl.createBuffer() as WebGLBuffer;
         //Bind the current buffer for operations

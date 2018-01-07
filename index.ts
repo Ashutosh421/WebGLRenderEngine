@@ -14,6 +14,8 @@ import { Color } from "./src/ts/RenderEngine/3DMaths/Color";
 import { MeshData } from "./src/ts/RenderEngine/Mesh/MeshData";
 import { Vector3D } from "./src/ts/RenderEngine/3DMaths/Vector3D";
 import { AsyncData } from "./src/ts/RenderEngine/Utils/AsyncData";
+import { UIManager } from "./src/ts/UIHandler/UIManager";
+import { MenuBar } from "./src/ts/UIHandler/MenuBar/MenuBar";
 
 let scene1:Scene;
 
@@ -47,6 +49,7 @@ let triangle:Entity;
 
    requestAnimationFrame(gameLoop);
    setupDebugControls();
+   initializeUI();
 })();
 
 
@@ -59,6 +62,11 @@ function gameLoop(){
     requestAnimationFrame(gameLoop);
 }
 
+function initializeUI(){
+    UIManager.Instance.init();
+    (<MenuBar>UIManager.Instance.menuBar).on('click', element=> console.log(`You clicked on ${element}`));
+}
+
 function setupDebugControls(){
     const XSlider:HTMLElement = document.querySelector("#XSlider") as HTMLElement;
     const YSlider:HTMLElement = document.querySelector("#YSlider") as HTMLElement;
@@ -66,17 +74,6 @@ function setupDebugControls(){
     XSlider.setAttribute("max", (window.innerWidth).toString());
     YSlider.setAttribute("min", "0");
     YSlider.setAttribute("max", (window.innerHeight).toString());
-    
-    XSlider.oninput = event => {
-                 const val = Number((<HTMLInputElement>event.target).value);
-               //  triangle.transform.Translate = new Vector3D(val, triangle.transform.Translate.y , triangle.transform.Translate.z);
-          };
-    YSlider.oninput = event => {
-                 const val = Number((<HTMLInputElement>event.target).value);
-//                 triangle.transform.Translate = new Vector3D(triangle.transform.Translate.x, val , triangle.transform.Translate.z);
-          };
-
-    //triangleMesh
 }
 
 
