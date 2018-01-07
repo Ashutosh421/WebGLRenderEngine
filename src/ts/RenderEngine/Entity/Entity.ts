@@ -5,13 +5,10 @@ export class Entity implements EntityComponent{
   
     private components:Array<EntityComponent>;
     private uniqueID:string;
-    public transform:Transform;    
 
     constructor(uniqueID:string){
         this.uniqueID = uniqueID;
         this.components = new Array<EntityComponent>();
-        this.addComponent<Transform>(Transform);
-        this.transform = this.getComponent<Transform>(Transform) as Transform;
     }
 
     public onInit(): void {

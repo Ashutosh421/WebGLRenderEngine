@@ -16,6 +16,8 @@ import { MenuBar } from "./src/ts/UIHandler/MenuBar/MenuBar";
 import { PrimitiveManager } from "./src/ts/RenderEngine/Primitives/PrimitiveManager";
 import { Triangle } from "./src/ts/RenderEngine/Primitives/Primitives3D/Triangle/Triangle";
 import { Triangle2D } from "./src/ts/RenderEngine/Primitives/Primitives2D/Triangle2D/Triangle2D";
+import { Rectangle2D } from "./src/ts/RenderEngine/Primitives/Primitives2D/Rectangle2D/Rectangle2D";
+import { Square2D } from "./src/ts/RenderEngine/Primitives/Primitives2D/Square2D/Square2D";
 
 let scene1:Scene;
 
@@ -68,9 +70,24 @@ function gameLoop(){
 function initializeUI(){
     UIManager.Instance.init();
     (<MenuBar>UIManager.Instance.menuBar).on('click', element=> {
-        if(element == "Triangle"){
-            const newEntity = PrimitiveManager.Instance.createPrimitive<Triangle2D>(Triangle2D) as Entity;
-            scene1.addEntity(newEntity);
+        switch (element.toString()){
+            case "Triangle":
+                const triangle = PrimitiveManager.Instance.createPrimitive<Triangle2D>(Triangle2D) as Entity;
+                scene1.addEntity(triangle);
+            break;
+
+            case "Rectangle":
+                const rectangle = PrimitiveManager.Instance.createPrimitive<Rectangle2D>(Rectangle2D) as Entity;
+                scene1.addEntity(rectangle);
+            break;
+
+            case "Square":
+                const square = PrimitiveManager.Instance.createPrimitive<Square2D>(Square2D) as Entity;
+                scene1.addEntity(square);
+            break;
+
+            default:
+            break;
         }
     });
 }
