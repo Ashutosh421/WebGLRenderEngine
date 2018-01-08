@@ -1,16 +1,20 @@
 import { MenuItem } from "./Menutem";
-import { MenuEventEmitter } from "./MenuEventEmitter";
+import { UIElement } from "../UIElement";
+import { UIElementEventEmitter } from "../UIElementComponents/UIElementEventEmitter";
 
-export class MenuBar {
+export class MenuBar extends UIElement {
 
     private menuItems:Array<MenuItem>;
     private menuBarRef:HTMLElement;
-    public menuEventEmitter:MenuEventEmitter;
+
+    private eventEmitter:UIElementEventEmitter;
 
     constructor(menuBar:HTMLElement){
+        super();
         this.menuBarRef = menuBar;
         this.menuItems = new Array<MenuItem>();
-        this.menuEventEmitter = new MenuEventEmitter(this);
+        this.addComponent<UIElementEventEmitter>(UIElementEventEmitter);
+        this.eventEmitter = this.getComponent<UIElementEventEmitter>(UIElementEventEmitter) as UIElementEventEmitter;
         this.updateMenuListItems();
     }
 
@@ -21,5 +25,5 @@ export class MenuBar {
     }
 
     //Forwarding the Event to the Menu Handler
-    public on(eventName:string , callback:(...args:any[])=>void ){this.menuEventEmitter.on(eventName , callback);}
+    public on(eventName:string , callback:(...args:any[])=>void ){this.eventEmitter.on(eventName , callback);}
 }

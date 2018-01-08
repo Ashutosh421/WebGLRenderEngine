@@ -6,7 +6,7 @@ import { Scene } from "./src/ts/RenderEngine/World/Scene";
 import { Transform } from "./src/ts/RenderEngine/Transform/Transform";
 import { MeshFilter } from "./src/ts/RenderEngine/Entity/Coms/MeshFilter";
 import "./src/styles/index.scss";
-import { gl , createWebGLContext} from "./src/ts/RenderEngine/WebGLContextManager";
+import { gl, createWebGLContext } from "./src/ts/RenderEngine/WebGLContextManager";
 import { Color } from "./src/ts/RenderEngine/3DMaths/Color";
 import { MeshData } from "./src/ts/RenderEngine/Mesh/MeshData";
 import { Vector3D } from "./src/ts/RenderEngine/3DMaths/Vector3D";
@@ -18,16 +18,17 @@ import { Triangle } from "./src/ts/RenderEngine/Primitives/Primitives3D/Triangle
 import { Triangle2D } from "./src/ts/RenderEngine/Primitives/Primitives2D/Triangle2D/Triangle2D";
 import { Rectangle2D } from "./src/ts/RenderEngine/Primitives/Primitives2D/Rectangle2D/Rectangle2D";
 import { Square2D } from "./src/ts/RenderEngine/Primitives/Primitives2D/Square2D/Square2D";
+import { SceneHeirarchy } from "./src/ts/UIHandler/SceneHeirarchy/SceneHeirarchy";
 
-let scene1:Scene;
+let scene1: Scene;
 
-let canvas:HTMLCanvasElement;
-let triangle:Entity;
+let canvas: HTMLCanvasElement;
+let triangle: Entity;
 
-(function(){
+(function () {
     //Create the CANVAS Platform
     canvas = document.createElement('canvas') as HTMLCanvasElement;
-    canvas.setAttribute("class","centerAbsolute");
+    canvas.setAttribute("class", "centerAbsolute");
     canvas.setAttribute("width", (window.innerWidth).toString());
     canvas.setAttribute("height", (window.innerHeight).toString());
     document.body.appendChild(canvas);
@@ -40,61 +41,56 @@ let triangle:Entity;
     scene1 = SceneManager.Instance.createScene("Scene") as Scene;
     SceneManager.Instance.showScenes();
 
-    //const triangleMesh:MeshData = new TriangleMesh();
-
-    // triangle = new Triangle("1");
-    // triangle.addComponent<MeshFilter>(MeshFilter);
-    // triangle.addComponent<MeshRenderer>(MeshRenderer);
-    // scene1.addEntity(triangle);
-
-    // (<MeshFilter>triangle.getComponent<MeshFilter>(MeshFilter)).RenderMesh = triangleMesh;
-
     requestAnimationFrame(gameLoop);
     setupDebugControls();
     initializeUI();
-
-    // const newEntity = PrimitiveManager.Instance.createPrimitive<Triangle>(Triangle);
-    // console.log(`New Entity Requested ${newEntity.constructor.name} ID: ${newEntity.ID}`);
 })();
 
 
-function gameLoop(){
-    gl.clearColor(0.2, 0.2, 0.2 , 1);
+function gameLoop() {
+    gl.clearColor(0.2, 0.2, 0.2, 1);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    
+
     scene1.update();
-    
+
     requestAnimationFrame(gameLoop);
 }
 
-function initializeUI(){
+function initializeUI() {
     UIManager.Instance.init();
-    (<MenuBar>UIManager.Instance.menuBar).on('click', element=> {
-        switch (element.toString()){
+    (<MenuBar>UIManager.Instance.menuBar).on('click', element => {
+        switch (element.toString()) {
             case "Triangle":
                 const triangle = PrimitiveManager.Instance.createPrimitive<Triangle2D>(Triangle2D) as Entity;
                 scene1.addEntity(triangle);
-            break;
+                (UIManager.Instance.sceneHeirarchy as SceneHeirarchy).updateEntity(triangle.ID);
+                break;
 
             case "Rectangle":
                 const rectangle = PrimitiveManager.Instance.createPrimitive<Rectangle2D>(Rectangle2D) as Entity;
                 scene1.addEntity(rectangle);
-            break;
+                (UIManager.Instance.sceneHeirarchy as SceneHeirarchy).updateEntity(rectangle.ID);
+                break;
 
             case "Square":
                 const square = PrimitiveManager.Instance.createPrimitive<Square2D>(Square2D) as Entity;
                 scene1.addEntity(square);
-            break;
+                (UIManager.Instance.sceneHeirarchy as SceneHeirarchy).updateEntity(square.ID);
+                break;
 
             default:
-            break;
+                break;
         }
     });
+    
+    (UIManager.Instance.sceneHeirarchy as SceneHeirarchy).on('click' , event=> console.log(`Scene Heirarchy clicked ${event}`));
+    
+    document.onkeydown = event => (UIManager.Instance.sceneHeirarchy as SceneHeirarchy).eventEmitter.showCallback('click');
 }
 
-function setupDebugControls(){
-    const XSlider:HTMLElement = document.querySelector("#XSlider") as HTMLElement;
-    const YSlider:HTMLElement = document.querySelector("#YSlider") as HTMLElement;
+function setupDebugControls() {
+    const XSlider: HTMLElement = document.querySelector("#XSlider") as HTMLElement;
+    const YSlider: HTMLElement = document.querySelector("#YSlider") as HTMLElement;
     XSlider.setAttribute("min", "0");
     XSlider.setAttribute("max", (window.innerWidth).toString());
     YSlider.setAttribute("min", "0");
@@ -103,4 +99,3 @@ function setupDebugControls(){
 
 
 
- 

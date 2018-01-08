@@ -1,5 +1,5 @@
 import { MenuBar } from "./MenuBar";
-import { MenuEventEmitter } from "./MenuEventEmitter";
+import { UIElementEventEmitter } from "../UIElementComponents/UIElementEventEmitter";
 
 export class MenuItem {
 
@@ -8,14 +8,14 @@ export class MenuItem {
     //Menu Item Details
     private menuItemName:string;
     private menuItemList:Array<HTMLLIElement>;
-    private menuEventEmitter:MenuEventEmitter;
+    private menuEventEmitter:UIElementEventEmitter;
 
     constructor(menuBar:MenuBar, menuItem:HTMLElement) {
-        this.menuEventEmitter = menuBar.menuEventEmitter;
+        //this.menuEventEmitter = menuBar.menuEventEmitter;
         this.menuItem = menuItem;
         this.menuItemName = (<HTMLElement>this.menuItem.querySelector(".menuItem span")).textContent as string;
         this.menuItemList = new Array<HTMLLIElement>();
-       
+        this.menuEventEmitter = menuBar.getComponent<UIElementEventEmitter>(UIElementEventEmitter) as UIElementEventEmitter;
         const menuItemListHolder = this.menuItem.querySelector(".menuItem .menuItemList ul") as HTMLElement;
         let menuItemList;
         if(menuItemListHolder){

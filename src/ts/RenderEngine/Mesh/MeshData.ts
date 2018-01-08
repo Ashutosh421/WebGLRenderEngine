@@ -35,7 +35,7 @@ export class MeshData {
         index = 0;
         this.colors.forEach(color=>
             {  
-                Object.keys(color).forEach(key=> this.rColors[index++] = (<any>color)[key]);
+                Object.keys(color).forEach(key => this.rColors[index++] = (<any>color)[key]);
             }
         );
     }

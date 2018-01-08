@@ -1,0 +1,47 @@
+.scene-heirarchy{
+    position: fixed;
+    bottom: 2px;
+    right: 2px;
+    width: 300px;
+    height: 460px;
+    background-color: #eeeef2;
+    z-index: 1;
+    user-select: none;
+    border: 1px solid;
+
+    .header{
+        width: 100%;
+        height: 50px;
+        box-shadow: 10px solid black;
+        background-color: #3b3b3b;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 25px;
+        text-align: center;
+        line-height: 45px;
+        color: white;
+    }
+
+    .elementList{
+        height: 89%;
+        list-style: none;
+        display: block;
+        overflow: auto;
+        .element{
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 8px 12px;
+            &:hover{
+                //background-color: white;
+                //color: black;
+                border: 0.1px solid;
+            }
+        }
+        .clicked{
+            background-color: white;
+            color: black;               
+        }
+        .default{
+            background-color: #686666;
+            color: white;
+        }
+    }
+}
