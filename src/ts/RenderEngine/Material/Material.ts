@@ -5,7 +5,6 @@ export class Material {
 
     constructor() {
         this.shader = new Shader('./src/shaders/default/2D/vShader.vs','./src/shaders/default/2D/fShader.fs');
-       // this.shader = new Shader();
     }
 
     public bind():void{

@@ -6,7 +6,7 @@ import { Entity } from "../Entity/Entity";
 import { gl , DisplaySize } from "../WebGLContextManager";
 import { MeshRenderer } from "../Entity/Coms/MeshRenderer";
 
-export class Transform implements EntityComponent{
+export class Transform extends EntityComponent{
    
     private entity: Entity;
     private position:Vector3D = Vector3D.Zero;
@@ -25,16 +25,14 @@ export class Transform implements EntityComponent{
     private meshRenderer:MeshRenderer;
 
     constructor(entity:Entity){
+        super();
         this.entity = entity;
-        this.meshRenderer = entity.getComponent<MeshRenderer>(MeshRenderer) as MeshRenderer;
-        this.translateUL = this.meshRenderer ?this.meshRenderer.getUniformLocation("translation") : null;
     }
 
-    public onInit(): void {}
-    public onUpdate(): void {}
-    public onEnabled(): void {}
-    public onDisabled(): void {}
-    public onDestroy(): void {}
+    public onInit(){
+        this.meshRenderer = this.entity.getComponent<MeshRenderer>(MeshRenderer) as MeshRenderer;
+        this.translateUL = this.meshRenderer ?this.meshRenderer.getUniformLocation("translation") : null;
+    }
 
     //#region Properties
     public set Position(position:Vector3D){this.position = position;}

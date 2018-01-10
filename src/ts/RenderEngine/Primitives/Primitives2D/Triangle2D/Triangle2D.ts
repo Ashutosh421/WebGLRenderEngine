@@ -9,13 +9,18 @@ export class Triangle2D extends Entity {
 
     private meshData:MeshData2D;
 
-    public onInit(){
-        super.onInit();
+    constructor(uniqueID:string){
+        super(uniqueID);
         this.meshData = new TriangleMesh2D();
 
         this.addComponent<Transform2D>(Transform2D);
         this.addComponent<MeshFilter>(MeshFilter);
         (this.getComponent<MeshFilter>(MeshFilter) as MeshFilter).RenderMesh = this.meshData;
         this.addComponent<MeshRenderer>(MeshRenderer);
+    }
+
+    public onInit(){
+        super.onInit();
+       
     }
 }

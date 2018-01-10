@@ -10,7 +10,7 @@ export class Vector3D {
 
     //#region Properties
     static get Zero():Vector3D{
-        return new Vector3D();
+        return new Vector3D(0,0,0);
     }
 
     static get Up():Vector3D{

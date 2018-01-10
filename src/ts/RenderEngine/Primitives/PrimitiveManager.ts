@@ -14,6 +14,7 @@ export class PrimitiveManager {
     }
 
     public createPrimitive<T extends Entity>(primitive:new(uniqueID:string)=>T):Entity{
-        return new primitive(`${primitive.name}: ${this.currentPrimitiveID++}`);
+        //const entity:Entity = new primitive(`${primitive.name}`)
+        return new primitive(`${primitive.name}:${this.currentPrimitiveID++}`);
     }
 }

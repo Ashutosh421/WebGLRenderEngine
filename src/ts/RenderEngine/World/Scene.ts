@@ -11,13 +11,12 @@ export class Scene{
     }
 
     public update(){
-        //console.log(`Updating Scene ${this.sceneName}`);
         this.entities.forEach(entity=> entity.onUpdate());
     }
 
     public addEntity(entity:Entity){
-        this.entities.set(entity.ID , entity);
         entity.onInit();
+        this.entities.set(entity.ID , entity);
     }   
 
     public getEntity(entityID:string):Entity{

@@ -8,14 +8,19 @@ export class Triangle extends Entity{
 
     private meshData:MeshData;
 
-    //#region LifeCycle Hooks
-    public onInit(): void {
-        super.onInit();
+    constructor(uniqueID:string){
+        super(uniqueID);
         this.meshData = new TriangleMesh();
         
         this.addComponent<MeshFilter>(MeshFilter);
         (<MeshFilter>this.getComponent<MeshFilter>(MeshFilter)).RenderMesh = this.meshData;
         this.addComponent<MeshRenderer>(MeshRenderer);
+    }
+
+    //#region LifeCycle Hooks
+    public onInit(): void {
+        super.onInit();
+        
     }
     public onEnabled(): void {
         super.onEnabled();

@@ -19,6 +19,8 @@ import { Triangle2D } from "./src/ts/RenderEngine/Primitives/Primitives2D/Triang
 import { Rectangle2D } from "./src/ts/RenderEngine/Primitives/Primitives2D/Rectangle2D/Rectangle2D";
 import { Square2D } from "./src/ts/RenderEngine/Primitives/Primitives2D/Square2D/Square2D";
 import { SceneHeirarchy } from "./src/ts/UIHandler/SceneHeirarchy/SceneHeirarchy";
+import { Transform2D } from "./src/ts/RenderEngine/Transform/Transform2D";
+import { Vector2D } from "./src/ts/RenderEngine/3DMaths/Vector2D";
 
 let scene1: Scene;
 
@@ -42,8 +44,8 @@ let triangle: Entity;
     SceneManager.Instance.showScenes();
 
     requestAnimationFrame(gameLoop);
-    setupDebugControls();
     initializeUI();
+    setupDebugControls();
 })();
 
 
@@ -82,19 +84,59 @@ function initializeUI() {
                 break;
         }
     });
-    
-    (UIManager.Instance.sceneHeirarchy as SceneHeirarchy).on('click' , event=> console.log(`Scene Heirarchy clicked ${event}`));
-    
-    document.onkeydown = event => (UIManager.Instance.sceneHeirarchy as SceneHeirarchy).eventEmitter.showCallback('click');
 }
 
 function setupDebugControls() {
     const XSlider: HTMLElement = document.querySelector("#XSlider") as HTMLElement;
     const YSlider: HTMLElement = document.querySelector("#YSlider") as HTMLElement;
+    const AngleSlider: HTMLElement = document.querySelector('#AngleSlider') as HTMLElement;
+    const XScaleSlider: HTMLElement = document.querySelector(`#XScaleSlider`) as HTMLElement;
+    const YScaleSlider: HTMLElement = document.querySelector(`#YScaleSlider`) as HTMLElement;
     XSlider.setAttribute("min", "0");
     XSlider.setAttribute("max", (window.innerWidth).toString());
     YSlider.setAttribute("min", "0");
     YSlider.setAttribute("max", (window.innerHeight).toString());
+    AngleSlider.setAttribute("min", "0");
+    AngleSlider.setAttribute("max", "360");
+    XScaleSlider.setAttribute("min" , "0");
+    XScaleSlider.setAttribute("max" , "10");
+    XScaleSlider.setAttribute("step" , "0.0001");
+    (<HTMLInputElement>XScaleSlider).value = "1";
+    YScaleSlider.setAttribute("min" , "0");
+    YScaleSlider.setAttribute("max" , "10");
+    YScaleSlider.setAttribute("step" , "0.0001");
+    (<HTMLInputElement>YScaleSlider).value = "1";
+
+    let currentEntity:Entity|null;
+    (UIManager.Instance.sceneHeirarchy as SceneHeirarchy).on('click' , enitityID=> {
+        currentEntity = scene1.getEntity(enitityID.toString()) as Entity;
+    });
+    XSlider.oninput = event => {
+        if(currentEntity){
+            (currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).translation2D.x = Number((XSlider as HTMLInputElement).value);
+        }
+    };
+    YSlider.oninput = event => {
+        if(currentEntity){
+            (currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).translation2D.y = Number((YSlider as HTMLInputElement).value);
+        }
+    }
+    AngleSlider.oninput = event => {
+        if(currentEntity){
+            (currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).angle = Number((AngleSlider as HTMLInputElement).value);
+        }
+    }
+    XScaleSlider.oninput = event => {
+        if(currentEntity){
+            (currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).scale2D.x = Number((XScaleSlider as HTMLInputElement).value);
+        }
+    }
+    YScaleSlider.oninput = event => {
+        if(currentEntity){
+            (currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).scale2D.y = Number((YScaleSlider as HTMLInputElement).value);
+        }
+    }
+   // window.onkeydown = event => event.keyCode == 32 && scene1.entities.forEach((value , key) => {console.log(`Entity ID ${key} and value ${value}`)});
 }
 
 
