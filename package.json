@@ -20,6 +20,8 @@
   "author": "ashutosh@rautela",
   "license": "ISC",
   "devDependencies": {
+    "@types/webgl-ext": "0.0.29",
+    "@types/webgl2": "0.0.2",
     "clean-webpack-plugin": "^0.1.17",
     "css-loader": "^0.28.8",
     "html-webpack-plugin": "^2.30.1",

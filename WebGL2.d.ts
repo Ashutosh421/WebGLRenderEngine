@@ -148,7 +148,8 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
     uniformMatrix3x2fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array, srcOffset?: number, srcLength?: number): void;
     uniformMatrix4x2fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array, srcOffset?: number, srcLength?: number): void;
     uniformMatrix2x3fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array, srcOffset?: number, srcLength?: number): void;
-    uniformMatrix3fv(location: WebGLUniformLocation | null,   transpose: boolean, data: Float32Array, srcOffset?: number, srcLength?: number): void;
+    //uniformMatrix3fv(location: WebGLUniformLocation | null,   transpose: boolean, data: Float32Array | number[], srcOffset?: number, srcLength?: number): void;
+    uniformMatrix3fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array | number[]): void;
     uniformMatrix4x3fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array, srcOffset?: number, srcLength?: number): void;
     uniformMatrix2x4fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array, srcOffset?: number, srcLength?: number): void;
     uniformMatrix3x4fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array, srcOffset?: number, srcLength?: number): void;

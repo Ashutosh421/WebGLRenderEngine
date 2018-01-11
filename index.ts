@@ -21,6 +21,7 @@ import { Square2D } from "./src/ts/RenderEngine/Primitives/Primitives2D/Square2D
 import { SceneHeirarchy } from "./src/ts/UIHandler/SceneHeirarchy/SceneHeirarchy";
 import { Transform2D } from "./src/ts/RenderEngine/Transform/Transform2D";
 import { Vector2D } from "./src/ts/RenderEngine/3DMaths/Vector2D";
+import { Matrix3 } from "./src/ts/RenderEngine/3DMaths/Matrix3";
 
 let scene1: Scene;
 
@@ -46,8 +47,8 @@ let triangle: Entity;
     requestAnimationFrame(gameLoop);
     initializeUI();
     setupDebugControls();
+    testingMathsAPI();
 })();
-
 
 function gameLoop() {
     gl.clearColor(0.2, 0.2, 0.2, 1);
@@ -56,6 +57,20 @@ function gameLoop() {
     scene1.update();
 
     requestAnimationFrame(gameLoop);
+}
+
+function testingMathsAPI(){
+    const translateMatrix:Matrix3 = Matrix3.Translation(new Vector2D(10,10));
+    translateMatrix.print();
+
+    const rotationMatrix:Matrix3 = Matrix3.RotationDeg(30);
+    rotationMatrix.print();
+
+    const scaleMatrix:Matrix3 = Matrix3.Scale(new Vector2D(20,20));
+    scaleMatrix.print();
+
+    const productMatrix:Matrix3 = scaleMatrix.multiply(rotationMatrix).multiply(translateMatrix);
+    productMatrix.print();
 }
 
 function initializeUI() {
@@ -113,30 +128,31 @@ function setupDebugControls() {
     });
     XSlider.oninput = event => {
         if(currentEntity){
-            (currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).translation2D.x = Number((XSlider as HTMLInputElement).value);
+            (currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).Position = new Vector2D(Number((XSlider as HTMLInputElement).value) , (currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).Position.y);
+            //console.log(`Current Position X ${(currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).Position.x}`);
         }
     };
     YSlider.oninput = event => {
         if(currentEntity){
-            (currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).translation2D.y = Number((YSlider as HTMLInputElement).value);
+            //(currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).Position.y = Number((YSlider as HTMLInputElement).value);
+            (currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).Position = new Vector2D((currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).Position.x, Number((YSlider as HTMLInputElement).value));
         }
     }
     AngleSlider.oninput = event => {
         if(currentEntity){
-            (currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).angle = Number((AngleSlider as HTMLInputElement).value);
+            (currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).Angle = Number((AngleSlider as HTMLInputElement).value);
         }
     }
     XScaleSlider.oninput = event => {
         if(currentEntity){
-            (currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).scale2D.x = Number((XScaleSlider as HTMLInputElement).value);
+            (currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).Scale = new Vector2D(Number((XScaleSlider as HTMLInputElement).value) , (currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).Scale.y);
         }
     }
     YScaleSlider.oninput = event => {
         if(currentEntity){
-            (currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).scale2D.y = Number((YScaleSlider as HTMLInputElement).value);
+            (currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).Scale = new Vector2D((currentEntity.getComponent<Transform2D>(Transform2D) as Transform2D).Scale.x , Number((YScaleSlider as HTMLInputElement).value));
         }
     }
-   // window.onkeydown = event => event.keyCode == 32 && scene1.entities.forEach((value , key) => {console.log(`Entity ID ${key} and value ${value}`)});
 }
 
 

@@ -12,6 +12,11 @@ export class Vector2D {
      {
          return new Vector2D(0,0);
      }
+
+     static get One():Vector2D
+     {
+         return new Vector2D(1,1);
+     }
  
      static get Up():Vector2D
      {
