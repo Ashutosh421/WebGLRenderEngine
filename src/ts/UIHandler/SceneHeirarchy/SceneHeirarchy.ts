@@ -4,7 +4,7 @@ import { UIElementDraggable } from "../UIElementComponents/UIElementDraggable";
 
 export class SceneHeirarchy extends UIElement{
 
-    public style:string = 'scene-heirarchy';
+    public styleH:string = 'scene-heirarchy';
 
 
     public eventEmitter:UIElementEventEmitter;
@@ -16,11 +16,12 @@ export class SceneHeirarchy extends UIElement{
 
     constructor(){
         super();
+        this.load();
     }
 
     public load():void{
         this.base = document.createElement("div");
-        this.base.classList.add(this.style);
+        this.base.classList.add(this.styleH);
         document.body.appendChild(this.base);
 
         const header:HTMLElement = document.createElement("div");

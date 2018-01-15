@@ -11,7 +11,57 @@ export class MenuBar extends UIElement {
 
     constructor(menuBar:HTMLElement){
         super();
-        this.menuBarRef = menuBar;
+        this.innerHTML = `
+                <nav id="dropDownMenu" class="menuBar">
+                <ul class="menuList">
+                    <li>
+                        <div class="menuItem">
+                            <span>File</span>    
+                        </div>
+                    </li>
+                    <li>
+                        <div class="menuItem">
+                            <span>Edit</span>    
+                        </div>
+                    </li>
+                    <li>
+                        <div class="menuItem">
+                            <span>Add</span>
+                            <div class="menuItemList">
+                                <ul>
+                                    <li>Rectangle</li>
+                                    <li>Square</li>
+                                    <li>Triangle</li>
+                                    <li>Parallelogram</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="menuItem">
+                            <span>View</span>   
+                            <div class="menuItemList">
+                                <ul>
+                                    <li>Inspector</li>
+                                    <li>Heirarchy</li>
+                                </ul>
+                            </div> 
+                        </div>
+                    </li>
+                    <li>
+                        <div class="menuItem">
+                            <span>Examples</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="menuItem">
+                            <span>Help</span>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        `;
+        this.menuBarRef = this.querySelector("#dropDownMenu") as HTMLElement;
         this.menuItems = new Array<MenuItem>();
         this.addComponent<UIElementEventEmitter>(UIElementEventEmitter);
         this.eventEmitter = this.getComponent<UIElementEventEmitter>(UIElementEventEmitter) as UIElementEventEmitter;

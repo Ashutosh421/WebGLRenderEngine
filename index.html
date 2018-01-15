@@ -8,76 +8,9 @@
     <title>Ashutosh - WebGL Portfolio</title>
 </head>
 <body>
-    <nav id="dropDownMenu" class="menuBar">
-        <ul class="menuList">
-            <li>
-                <div class="menuItem">
-                    <span>File</span>    
-                </div>
-            </li>
-            <li>
-                <div class="menuItem">
-                    <span>Edit</span>    
-                </div>
-            </li>
-            <li>
-                <div class="menuItem">
-                    <span>Add</span>
-                    <div class="menuItemList">
-                        <ul>
-                            <li>Rectangle</li>
-                            <li>Square</li>
-                            <li>Triangle</li>
-                            <li>Parallelogram</li>
-                        </ul>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="menuItem">
-                    <span>View</span>   
-                    <div class="menuItemList">
-                        <ul>
-                            <li>Inspector</li>
-                            <li>Heirarchy</li>
-                        </ul>
-                    </div> 
-                </div>
-            </li>
-            <li>
-                <div class="menuItem">
-                    <span>Examples</span>
-                </div>
-            </li>
-            <li>
-                <div class="menuItem">
-                    <span>Help</span>
-                </div>
-            </li>
-        </ul>
-    </nav>
-    <div id="transformControl">
-        <div class="positionSlider">
-            <label for="XSlider">X: </label>
-            <input type="range" id="XSlider">
-        </div>
-        <div class="positionSlider">
-            <label for="YSlider">Y: </label>
-            <input type="range" id="YSlider">
-        </div>
-        <div class="positionSlider">
-            <label for="AngleSlider">Angle: </label>
-            <input type="range" id="AngleSlider">
-        </div>
-        <div class="positionSlider">
-            <label for="XScaleSlider">XScale: </label>
-            <input type="range" id="XScaleSlider">
-        </div>
-        <div class="positionSlider">
-            <label for="YScaleSlider">YScale: </label>
-            <input type="range" id="YScaleSlider">
-        </div>
-    </div>
+    <ar-menu></ar-menu>
+    <ar-inspector></ar-inspector>
+    <ar-scene-heirarchy></ar-scene-heirarchy>
 </body>
 
 </html>

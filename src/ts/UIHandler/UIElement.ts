@@ -1,11 +1,12 @@
 import { UIElementComponent } from "./UIElementComponent";
 import { UIElementEventEmitter } from "./UIElementComponents/UIElementEventEmitter";
 
-export class UIElement {
+export class UIElement extends HTMLElement {
     private uiElementComponents:Array<UIElementComponent>;
     
     
     constructor() {
+        super();
         this.uiElementComponents = new Array<UIElementComponent>();
     }
 
