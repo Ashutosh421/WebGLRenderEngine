@@ -1,10 +1,7 @@
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
-    entry: "./index.ts",
+    entry: "./index.tsx",
     module: {
         rules: [
             {
@@ -28,25 +25,22 @@ module.exports = {
                 ]
             },
             {
-                 test: /\.(tsx|ts)?$/,
-                 loader: 'ts-loader' 
-            }
+                test: /\.(ts|tsx)?$/,
+                loader: 'ts-loader',
+                exclude: /node_modules/
+              },
         ]
     },
     devtool: 'source-map',
     plugins: [
-        new HtmlWebpackPlugin(
-            {
-                title: 'Ashutosh - WebGL Portfolio',
-                template: 'index.html',
-                inject: 'body'
-            }
-        ),
-        new CleanWebpackPlugin(['dist'])
     ],
     resolve: {
-        extensions: ['.ts', '.js', '.json', '.scss']
-    },
+        extensions: [
+          '.tsx',
+          '.ts',
+          '.js'
+        ]
+      },
     output: {
         filename: "webgl_portfolio_bundle.js",
         path: path.resolve(__dirname, '/dist')        

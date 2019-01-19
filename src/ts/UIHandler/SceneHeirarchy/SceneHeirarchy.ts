@@ -7,12 +7,12 @@ export class SceneHeirarchy extends UIElement{
     public styleH:string = 'scene-heirarchy';
 
 
-    public eventEmitter:UIElementEventEmitter;
-    private uiElementDraggable:UIElementDraggable;
-    private node:HTMLElement;
+    public eventEmitter!: UIElementEventEmitter;
+    private uiElementDraggable!: UIElementDraggable;
+    private node!: HTMLElement;
 
-    private base:HTMLElement;
-    private entitiyList:HTMLUListElement;
+    private base!: HTMLElement;
+    private entitiyList!: HTMLUListElement;
 
     constructor(){
         super();

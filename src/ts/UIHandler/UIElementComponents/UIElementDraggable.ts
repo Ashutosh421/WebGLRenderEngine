@@ -5,18 +5,19 @@ import { Vector2D } from "../../RenderEngine/3DMaths/Vector2D";
 export class UIElementDraggable implements UIElementComponent {
 
     private uiElement:UIElement;
-    public selectorTarget:HTMLElement;
-    public draggableTarget:HTMLElement;
+    public selectorTarget!: HTMLElement;
+    public draggableTarget!: HTMLElement;
 
-    private currentPos:Vector2D;
-    private deltaPos:Vector2D;
+    private currentPos!: Vector2D;
+    private deltaPos!: Vector2D;
 
-    private translation:Vector2D;
+    private translation!: Vector2D;
 
     //Callbacks References
-    private onMouseDownRef:(event:MouseEvent)=>void;
-    private onMouseMoveRef:(event:MouseEvent)=>void;
-    private onMouseUpRef:()=>void;
+    //Callbacks References
+    private onMouseDownRef!: (event: MouseEvent) => void;
+    private onMouseMoveRef!: (event: MouseEvent) => void;
+    private onMouseUpRef!: () => void;
 
     constructor(uiElement:UIElement){
         this.uiElement = uiElement;

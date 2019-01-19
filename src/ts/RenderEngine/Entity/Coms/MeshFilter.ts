@@ -6,11 +6,11 @@ import { MeshData2D } from "../../Mesh/MeshData2D";
 
 export class MeshFilter implements EntityComponent {
 
-    private mesh: MeshData|MeshData2D;
-    private gl: WebGLRenderingContext | WebGL2RenderingContext;
+    private mesh!: MeshData | MeshData2D;
+    private gl!: WebGLRenderingContext | WebGL2RenderingContext;
 
-    private vertexBuffer: WebGLBuffer;
-    private colorBuffer: WebGLBuffer;
+    private vertexBuffer!: WebGLBuffer;
+    private colorBuffer!: WebGLBuffer;
     private vertexArray: any;
 
     constructor(entity: Entity) {

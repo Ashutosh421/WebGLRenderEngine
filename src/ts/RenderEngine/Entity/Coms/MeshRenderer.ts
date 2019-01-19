@@ -9,8 +9,8 @@ import { Transform2D } from "../../Transform/Transform2D";
 export class MeshRenderer implements EntityComponent {
 
     public material:Material;
-    private meshFilter:MeshFilter;
-    private transform2D:Transform2D;
+    private meshFilter!: MeshFilter;
+    private transform2D!: Transform2D;
     private shaderProgram:WebGLProgram;
     private entity:Entity;
 

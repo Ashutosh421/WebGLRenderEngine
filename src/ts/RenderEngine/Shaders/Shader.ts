@@ -3,12 +3,13 @@ import { AsyncData } from "../Utils/AsyncData";
 
 export class Shader {
 
-    private vertexShaderSource: string;
-    private fragmentShaderSource: string;
+    private vertexShaderSource!: string;
+    private fragmentShaderSource!: string;
 
     //Shader Program Assets
-    private vertexShader: WebGLShader;
-    private fragmentShader: WebGLShader;
+    //Shader Program Assets
+    private vertexShader!: WebGLShader;
+    private fragmentShader!: WebGLShader;
     private shaderProgram: WebGLProgram | null;
     private programReady: boolean = false;
 

@@ -19,10 +19,13 @@ export class Transform extends EntityComponent{
     //private rotation2D:Vector2D = 
 
     //WebGLUniform Locations;
-    private translateUL:WebGLUniformLocation|null;
+    //private rotation2D:Vector2D = 
+    //WebGLUniform Locations;
+    private translateUL!: WebGLUniformLocation | null;
 
     //Other Components
-    private meshRenderer:MeshRenderer;
+    //Other Components
+    private meshRenderer!: MeshRenderer;
 
     constructor(entity:Entity){
         super();

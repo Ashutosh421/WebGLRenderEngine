@@ -3,19 +3,20 @@ import { Color} from "../3DMaths/Color";
 
 export class MeshData2D {
  
-    private rVPostitions:Float32Array;
-    private rNormals:Float32Array;
-    private rUvs:Float32Array;
-    private rColors:Float32Array;
+    private rVPostitions!: Float32Array;
+    private rNormals!: Float32Array;
+    private rUvs!: Float32Array;
+    private rColors!: Float32Array;
 
-    protected vPositions:Array<Vector2D>;
-    protected normals:Array<Vector2D>;
-    protected uvs:Array<Vector2D>;
-    protected colors:Array<Color>;
+    protected vPositions!: Array<Vector2D>;
+    protected normals!: Array<Vector2D>;
+    protected uvs!: Array<Vector2D>;
+    protected colors!: Array<Color>;
 
     //Stride Contributtions
-    protected vPositionStride:number;
-    protected colorStride:number;
+    //Stride Contributtions
+    protected vPositionStride!: number;
+    protected colorStride!: number;
 
     protected processMesh(){
         this.vPositionStride = Object.keys(this.vPositions[0]).length;

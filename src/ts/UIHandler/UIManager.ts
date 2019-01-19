@@ -9,7 +9,8 @@ export class UIManager {
     private static instance:UIManager;
 
     //HTML UI Elements
-    private menuElement:HTMLElement;
+    //HTML UI Elements
+    private menuElement!: HTMLElement;
 
     private constructor() {}
 

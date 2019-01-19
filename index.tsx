@@ -24,6 +24,10 @@ import { Vector2D } from "./src/ts/RenderEngine/3DMaths/Vector2D";
 import { Matrix3 } from "./src/ts/RenderEngine/3DMaths/Matrix3";
 import { Inspector } from "./src/ts/UIHandler/Inspector/Inspector";
 
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { EntityItemsExplorer } from './src/ts/UIRHandler/ItemsExplorer/EntityItemsExplorer.Component';
+
 let scene1: Scene;
 
 let canvas: HTMLCanvasElement;
@@ -46,8 +50,9 @@ let triangle: Entity;
     SceneManager.Instance.showScenes();
 
     requestAnimationFrame(gameLoop);
-    initializeUI();
-    setupDebugControls();
+    initializeReactUI();
+    // initializeUI();
+    // setupDebugControls();
     testingMathsAPI();
 })();
 
@@ -74,6 +79,11 @@ function testingMathsAPI(){
     productMatrix.print();
 }
 
+function initializeReactUI() {
+    ReactDOM.render(<EntityItemsExplorer/> , document.querySelector("#itemsExplorer"));
+}
+
+/*
 function initializeUI() {
     UIManager.Instance.init();
     UIManager.Instance.initMenuBar.then((success)=>{
@@ -166,5 +176,5 @@ function setupDebugControls() {
     });
 }
 
-
+*/
 

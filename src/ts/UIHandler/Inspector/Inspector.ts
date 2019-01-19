@@ -28,8 +28,8 @@ export class Inspector extends UIElement {
     </div>
 </div>`;
    
-    private inspecterDragger:UIElementDraggable;
-    private transformControl:HTMLElement;
+    private inspecterDragger!: UIElementDraggable;
+    private transformControl!: HTMLElement;
 
     constructor() {
         super();

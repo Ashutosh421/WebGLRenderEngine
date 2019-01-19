@@ -15,14 +15,17 @@ export class Transform2D extends EntityComponent{
     // private rotationLocation:WebGLUniformLocation|null;
     // private scaleLocation:WebGLUniformLocation|null;
 
-    private meshRenderer:MeshRenderer;
+    // private translationLocation:WebGLUniformLocation|null;
+    // private rotationLocation:WebGLUniformLocation|null;
+    // private scaleLocation:WebGLUniformLocation|null;
+    private meshRenderer!: MeshRenderer;
     
     private position:Vector2D;
     private angle:number;
     private scale:Vector2D;
 
     private transformMatrix:Matrix3;
-    private transformMatrixLocation:WebGLUniformLocation;
+    private transformMatrixLocation!: WebGLUniformLocation;
 
     constructor(entity:Entity){
         super();
