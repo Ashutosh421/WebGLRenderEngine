@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './EntityItem.scss';
 
 export interface EntityItemState {
     selected: boolean;
@@ -6,7 +7,6 @@ export interface EntityItemState {
 }
 
 export interface EntityItemProp {
-    id: number;
     name: string;
     onEntityClick?: (event : React.MouseEvent<HTMLLIElement , MouseEvent>) => void;
 }
@@ -18,6 +18,6 @@ export class EntityItem extends React.Component<EntityItemProp , EntityItemState
     }
 
     render() {
-        return <li onClick = {(event) => this.props.onEntityClick && this.props.onEntityClick(event)}>{this.props.name}</li>;
+        return <li className = 'entityItem' onClick = {(event) => this.props.onEntityClick && this.props.onEntityClick(event)}>{this.props.name}</li>;
     }
 }

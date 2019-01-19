@@ -4,9 +4,9 @@
   "description": "WebGl Showcase",
   "main": "index.js",
   "scripts": {
-    "build:dev": "run-p webpack:dev clear",
+    "build:dev": "webpack && webpack-dev-server",
     "build:prod": "run-p webpack:prod clear",
-    "webpack:dev": "webpack-dev-server --config webpack.dev.js",
+    "webpack:dev": "webpack-dev-server --config webpack.config.js",
     "webpack:prod": "webpack --config webpack.common.js",
     "clear": "cls"
   },

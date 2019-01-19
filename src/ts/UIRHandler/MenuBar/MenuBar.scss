@@ -1,0 +1,25 @@
+.menuBar {
+    list-style: none;
+    background-color: #474747f0;
+    font-size: large;
+    padding-left: 10px;
+
+    & > ul {
+        display: flex;
+        list-style: none;
+
+        & > li {
+            min-width: 36px;
+            padding: 5px 10px;
+            color: #d9d9d9;
+            font-family: monospace;
+            transition: all 0.1s;
+
+            &:hover {
+                background-color: black;
+                color: bisque;
+                cursor: pointer;
+            }
+        }
+    }
+}

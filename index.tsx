@@ -1,32 +1,18 @@
 import { SceneManager } from "./src/ts/RenderEngine/World/SceneManager";
-import { EntityComponent } from './src/ts/RenderEngine/Entity/EntityComponent';
-import { MeshRenderer } from "./src/ts/RenderEngine/Entity/Coms/MeshRenderer";
 import { Entity } from "./src/ts/RenderEngine/Entity/Entity";
 import { Scene } from "./src/ts/RenderEngine/World/Scene";
-import { Transform } from "./src/ts/RenderEngine/Transform/Transform";
-import { MeshFilter } from "./src/ts/RenderEngine/Entity/Coms/MeshFilter";
 import "./src/styles/index.scss";
 import { gl, createWebGLContext } from "./src/ts/RenderEngine/WebGLContextManager";
-import { Color } from "./src/ts/RenderEngine/3DMaths/Color";
-import { MeshData } from "./src/ts/RenderEngine/Mesh/MeshData";
-import { Vector3D } from "./src/ts/RenderEngine/3DMaths/Vector3D";
-import { AsyncData } from "./src/ts/RenderEngine/Utils/AsyncData";
-import { UIManager } from "./src/ts/UIHandler/UIManager";
-import { MenuBar } from "./src/ts/UIHandler/MenuBar/MenuBar";
-import { PrimitiveManager } from "./src/ts/RenderEngine/Primitives/PrimitiveManager";
-import { Triangle } from "./src/ts/RenderEngine/Primitives/Primitives3D/Triangle/Triangle";
-import { Triangle2D } from "./src/ts/RenderEngine/Primitives/Primitives2D/Triangle2D/Triangle2D";
-import { Rectangle2D } from "./src/ts/RenderEngine/Primitives/Primitives2D/Rectangle2D/Rectangle2D";
-import { Square2D } from "./src/ts/RenderEngine/Primitives/Primitives2D/Square2D/Square2D";
-import { SceneHeirarchy } from "./src/ts/UIHandler/SceneHeirarchy/SceneHeirarchy";
-import { Transform2D } from "./src/ts/RenderEngine/Transform/Transform2D";
-import { Vector2D } from "./src/ts/RenderEngine/3DMaths/Vector2D";
-import { Matrix3 } from "./src/ts/RenderEngine/3DMaths/Matrix3";
-import { Inspector } from "./src/ts/UIHandler/Inspector/Inspector";
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { EntityItemsExplorer } from './src/ts/UIRHandler/ItemsExplorer/EntityItemsExplorer.Component';
+import { EntityItemsExplorer } from './src/ts/UIRHandler/ItemsExplorer/EntityItemsExplorer.component';
+import { PrimitiveManager } from "./src/ts/RenderEngine/Primitives/PrimitiveManager";
+import { Triangle2D } from "./src/ts/RenderEngine/Primitives/Primitives2D/Triangle2D/Triangle2D";
+import { Transform2D } from "./src/ts/RenderEngine/Transform/Transform2D";
+import { Vector2D } from "./src/ts/RenderEngine/3DMaths/Vector2D";
+import { Rectangle2D } from "./src/ts/RenderEngine/Primitives/Primitives2D/Rectangle2D/Rectangle2D";
+import { MenuBar } from "./src/ts/UIRHandler/MenuBar/MenuBar.component";
 
 let scene1: Scene;
 
@@ -34,12 +20,14 @@ let canvas: HTMLCanvasElement;
 let triangle: Entity;
 
 (function () {
+
     //Create the CANVAS Platform
     canvas = document.createElement('canvas') as HTMLCanvasElement;
     canvas.setAttribute("class", "centerAbsolute");
     canvas.setAttribute("width", (window.innerWidth).toString());
     canvas.setAttribute("height", (window.innerHeight).toString());
     document.body.appendChild(canvas);
+    document.body.insertBefore(canvas , document.body.querySelector("#uiLayer") as HTMLDivElement);
 
     //Create WebGL Context here...
     createWebGLContext(canvas);
@@ -50,10 +38,10 @@ let triangle: Entity;
     SceneManager.Instance.showScenes();
 
     requestAnimationFrame(gameLoop);
-    initializeReactUI();
+    initializeReactUI(scene1);
     // initializeUI();
     // setupDebugControls();
-    testingMathsAPI();
+    // testingMathsAPI();
 })();
 
 function gameLoop() {
@@ -65,6 +53,7 @@ function gameLoop() {
     requestAnimationFrame(gameLoop);
 }
 
+/*
 function testingMathsAPI(){
     const translateMatrix:Matrix3 = Matrix3.Translation(new Vector2D(10,10));
     translateMatrix.print();
@@ -77,10 +66,26 @@ function testingMathsAPI(){
 
     const productMatrix:Matrix3 = scaleMatrix.multiply(rotationMatrix).multiply(translateMatrix);
     productMatrix.print();
-}
+}*/
 
-function initializeReactUI() {
-    ReactDOM.render(<EntityItemsExplorer/> , document.querySelector("#itemsExplorer"));
+function initializeReactUI(sceneToRender: Scene) {
+    ReactDOM.render(<EntityItemsExplorer scene = {sceneToRender}/> , document.querySelector("#itemsExplorer"));
+    ReactDOM.render(<MenuBar/> , document.querySelector("#menuBar"));
+
+    const triangle = PrimitiveManager.Instance.createPrimitive<Triangle2D>(Triangle2D) as Entity;
+    scene1.addEntity(triangle);
+    (triangle.getComponent<Transform2D>(Transform2D) as Transform2D).Position = new Vector2D(400 , 100);
+
+    const rectangle = PrimitiveManager.Instance.createPrimitive<Rectangle2D>(Rectangle2D) as Entity;
+    scene1.addEntity(rectangle);
+    (rectangle.getComponent<Transform2D>(Transform2D) as Transform2D).Position = new Vector2D(400 , 100);
+    
+
+    for(let i = 0 ; i < 10 ; i++){
+        const rectangle = PrimitiveManager.Instance.createPrimitive<Rectangle2D>(Rectangle2D) as Entity;
+        scene1.addEntity(rectangle);
+        (rectangle.getComponent<Transform2D>(Transform2D) as Transform2D).Position = new Vector2D(400 + (i * 100) , 100 + (i * 100));
+    }
 }
 
 /*

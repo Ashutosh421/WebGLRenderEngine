@@ -1,12 +1,8 @@
-import { UIElement } from "../UIElement";
+export class EventEmitter {
 
-export class UIElementEventEmitter {
-
-    private uiElement:UIElement;
     private events:Map<string, Array<(...args:any[])=>void>>;
 
-    constructor(uiElement:UIElement) {
-        this.uiElement = uiElement;
+    constructor() {
         this.events = new Map<string , Array<(...args:any[])=>void>>();
     }
 
