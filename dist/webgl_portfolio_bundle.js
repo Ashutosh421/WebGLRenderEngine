@@ -282,6 +282,25 @@ exports.push([module.i, ".scene-heirarchy {\n  position: fixed;\n  bottom: 2px;\
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./src/ts/UIRHandler/Draggable/Draggable.scss":
+/*!***********************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js!./src/ts/UIRHandler/Draggable/Draggable.scss ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".draggableC {\n  position: relative;\n  display: inline-block; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./src/ts/UIRHandler/Header/Header.scss":
 /*!*****************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js!./src/ts/UIRHandler/Header/Header.scss ***!
@@ -351,7 +370,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".entityItemsExplorer {\n  position: absolute;\n  top: 28px;\n  left: 0%;\n  height: 100%;\n  min-width: 200px;\n  background-color: #474747f0;\n  display: grid;\n  grid-template-rows: 30px auto; }\n", ""]);
+exports.push([module.i, ".entityItemsExplorer {\n  min-width: 200px;\n  background-color: #474747f0;\n  display: grid;\n  grid-template-rows: 30px auto;\n  max-width: 200px;\n  min-height: 1000px; }\n", ""]);
 
 // exports
 
@@ -25410,6 +25429,113 @@ exports.SceneManager = SceneManager;
 
 /***/ }),
 
+/***/ "./src/ts/UIRHandler/Draggable/Draggable.component.tsx":
+/*!*************************************************************!*\
+  !*** ./src/ts/UIRHandler/Draggable/Draggable.component.tsx ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+__webpack_require__(/*! ./Draggable.scss */ "./src/ts/UIRHandler/Draggable/Draggable.scss");
+const Vector2D_1 = __webpack_require__(/*! ../../RenderEngine/3DMaths/Vector2D */ "./src/ts/RenderEngine/3DMaths/Vector2D.ts");
+class Draggable extends React.Component {
+    constructor(props, state) {
+        super(props, state);
+        this.startPos = Vector2D_1.Vector2D.Zero;
+        this.delta = Vector2D_1.Vector2D.Zero;
+        this.isDragging = false;
+        //#endregion
+        //#region Draggable Events
+        this.onMouseDown = (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            this.isDragging = true;
+            this.startPos.x = event.x;
+            this.startPos.y = event.y;
+            window.addEventListener('mousemove', this.onMouseMove);
+            window.addEventListener('mouseup', this.onMouseUp);
+        };
+        this.onMouseMove = (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            if (this.isDragging) {
+                this.delta.x = event.x - this.startPos.x;
+                this.delta.y = event.y - this.startPos.y;
+                console.log(`Drag towards`, this.delta);
+                this.ref.current.style.left = (this.ref.current.offsetLeft + this.delta.x) + 'px';
+                // (this.ref.current as HTMLDivElement).style.top = ((this.ref.current as HTMLDivElement).offsetTop) + 'px';
+                console.log(`New Position X`, (this.ref.current.offsetLeft + this.delta.x).toString());
+                console.log(`New Position y`, this.ref.current.offsetTop);
+                // this.forceUpdate();
+                this.startPos.x = event.x;
+                this.startPos.y = event.y;
+            }
+        };
+        this.onMouseUp = (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            if (this.isDragging) {
+                this.isDragging = false;
+            }
+            window.removeEventListener('mousemove', this.onMouseMove);
+            window.removeEventListener('mouseup', this.onMouseUp);
+        };
+        this.ref = React.createRef();
+    }
+    //#region Private_Methods
+    registerEvents() {
+        this.ref.current.addEventListener('mousedown', this.onMouseDown);
+    }
+    unregisterEvents() {
+        this.ref.current.removeEventListener('mousedown', this.onMouseDown);
+    }
+    //#endregion
+    //#region Component_LifeCycleHooks
+    componentDidMount() {
+        this.registerEvents();
+    }
+    componentWillUnmount() {
+        this.unregisterEvents();
+    }
+    //#endregion
+    render() {
+        return (React.createElement("div", { id: 'draggable', className: 'draggableC', ref: this.ref }, this.props.children));
+    }
+}
+exports.Draggable = Draggable;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRHJhZ2dhYmxlLmNvbXBvbmVudC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIkRyYWdnYWJsZS5jb21wb25lbnQudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsK0JBQStCO0FBQy9CLDRCQUEwQjtBQUUxQixrRUFBK0Q7QUFNL0QsTUFBYSxTQUFVLFNBQVEsS0FBSyxDQUFDLFNBQThCO0lBUS9ELFlBQVksS0FBUyxFQUFHLEtBQXFCO1FBQ3pDLEtBQUssQ0FBQyxLQUFLLEVBQUcsS0FBSyxDQUFDLENBQUM7UUFMakIsYUFBUSxHQUFhLG1CQUFRLENBQUMsSUFBSSxDQUFDO1FBQ25DLFVBQUssR0FBYSxtQkFBUSxDQUFDLElBQUksQ0FBQztRQUNoQyxlQUFVLEdBQVksS0FBSyxDQUFDO1FBMkJwQyxZQUFZO1FBRVosMEJBQTBCO1FBQ2xCLGdCQUFXLEdBQUcsQ0FBQyxLQUFpQixFQUFFLEVBQUU7WUFDeEMsS0FBSyxDQUFDLGNBQWMsRUFBRSxDQUFDO1lBQ3ZCLEtBQUssQ0FBQyxlQUFlLEVBQUUsQ0FBQztZQUN4QixJQUFJLENBQUMsVUFBVSxHQUFHLElBQUksQ0FBQztZQUN2QixJQUFJLENBQUMsUUFBUSxDQUFDLENBQUMsR0FBRyxLQUFLLENBQUMsQ0FBQyxDQUFDO1lBQzFCLElBQUksQ0FBQyxRQUFRLENBQUMsQ0FBQyxHQUFHLEtBQUssQ0FBQyxDQUFDLENBQUM7WUFFMUIsTUFBTSxDQUFDLGdCQUFnQixDQUFDLFdBQVcsRUFBRSxJQUFJLENBQUMsV0FBVyxDQUFDLENBQUM7WUFDdkQsTUFBTSxDQUFDLGdCQUFnQixDQUFDLFNBQVMsRUFBRSxJQUFJLENBQUMsU0FBUyxDQUFDLENBQUM7UUFDdkQsQ0FBQyxDQUFBO1FBRU8sZ0JBQVcsR0FBRyxDQUFDLEtBQWlCLEVBQUUsRUFBRTtZQUN4QyxLQUFLLENBQUMsY0FBYyxFQUFFLENBQUM7WUFDdkIsS0FBSyxDQUFDLGVBQWUsRUFBRSxDQUFDO1lBQ3hCLElBQUcsSUFBSSxDQUFD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
+
+/***/ }),
+
+/***/ "./src/ts/UIRHandler/Draggable/Draggable.scss":
+/*!****************************************************!*\
+  !*** ./src/ts/UIRHandler/Draggable/Draggable.scss ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/sass-loader/lib/loader.js!./Draggable.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./src/ts/UIRHandler/Draggable/Draggable.scss");
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
 /***/ "./src/ts/UIRHandler/Header/Header.component.tsx":
 /*!*******************************************************!*\
   !*** ./src/ts/UIRHandler/Header/Header.component.tsx ***!
@@ -25580,6 +25706,7 @@ const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 __webpack_require__(/*! ./EntityItemsExplorer.scss */ "./src/ts/UIRHandler/ItemsExplorer/EntityItemsExplorer.scss");
 const Header_component_1 = __webpack_require__(/*! ../Header/Header.component */ "./src/ts/UIRHandler/Header/Header.component.tsx");
 const EntityItemList_component_1 = __webpack_require__(/*! ./EntityItemList/EntityItemList.component */ "./src/ts/UIRHandler/ItemsExplorer/EntityItemList/EntityItemList.component.tsx");
+const Draggable_component_1 = __webpack_require__(/*! ../Draggable/Draggable.component */ "./src/ts/UIRHandler/Draggable/Draggable.component.tsx");
 class EntityItemsExplorer extends React.Component {
     constructor(props, state) {
         super(props, state);
@@ -25589,13 +25716,14 @@ class EntityItemsExplorer extends React.Component {
         });
     }
     render() {
-        return React.createElement("div", { className: 'entityItemsExplorer' },
-            React.createElement(Header_component_1.Header, { label: "Entity Items Explorer" }),
-            React.createElement(EntityItemList_component_1.EntityItemList, { entities: Array.from(this.props.scene.entities.keys()) }));
+        return (React.createElement(Draggable_component_1.Draggable, null,
+            React.createElement("div", { className: 'entityItemsExplorer' },
+                React.createElement(Header_component_1.Header, { label: "Entity Items Explorer" }),
+                React.createElement(EntityItemList_component_1.EntityItemList, { entities: Array.from(this.props.scene.entities.keys()) }))));
     }
 }
 exports.EntityItemsExplorer = EntityItemsExplorer;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRW50aXR5SXRlbXNFeHBsb3Jlci5jb21wb25lbnQuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJFbnRpdHlJdGVtc0V4cGxvcmVyLmNvbXBvbmVudC50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSwrQkFBK0I7QUFFL0Isc0NBQW1DO0FBRW5DLGlFQUFvRDtBQUNwRCx3RkFBMkU7QUFNM0UsTUFBYSxtQkFBb0IsU0FBUSxLQUFLLENBQUMsU0FBd0M7SUFFbkYsWUFBWSxLQUErQixFQUFHLEtBQVM7UUFDbkQsS0FBSyxDQUFDLEtBQUssRUFBRyxLQUFLLENBQUMsQ0FBQztRQUVyQiw0QkFBNEI7UUFDNUIsSUFBSSxDQUFDLEtBQUssQ0FBQyxLQUFLLENBQUMsRUFBRSxDQUFDLGFBQWEsRUFBRyxHQUFHLEVBQUU7WUFDckMsSUFBSSxDQUFDLFdBQVcsRUFBRSxDQUFDO1FBQ3ZCLENBQUMsQ0FBQyxDQUFDO0lBQ1AsQ0FBQztJQUVELE1BQU07UUFDRixPQUFPLDZCQUFLLFNBQVMsRUFBRyxxQkFBcUI7WUFDekMsb0JBQUMseUJBQU0sSUFBQyxLQUFLLEVBQUcsdUJBQXVCLEdBQVU7WUFDakQsb0JBQUMseUNBQWMsSUFBQyxRQUFRLEVBQUksS0FBSyxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsS0FBSyxDQUFDLEtBQUssQ0FBQyxRQUFRLENBQUMsSUFBSSxFQUFFLENBQUMsR0FBRyxDQUN6RSxDQUFDO0lBQ1gsQ0FBQztDQUNKO0FBakJELGtEQWlCQyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRW50aXR5SXRlbXNFeHBsb3Jlci5jb21wb25lbnQuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJFbnRpdHlJdGVtc0V4cGxvcmVyLmNvbXBvbmVudC50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSwrQkFBK0I7QUFFL0Isc0NBQW1DO0FBRW5DLGlFQUFvRDtBQUNwRCx3RkFBMkU7QUFDM0UsMEVBQTZEO0FBTTdELE1BQWEsbUJBQW9CLFNBQVEsS0FBSyxDQUFDLFNBQXdDO0lBRW5GLFlBQVksS0FBK0IsRUFBRyxLQUFTO1FBQ25ELEtBQUssQ0FBQyxLQUFLLEVBQUcsS0FBSyxDQUFDLENBQUM7UUFFckIsNEJBQTRCO1FBQzVCLElBQUksQ0FBQyxLQUFLLENBQUMsS0FBSyxDQUFDLEVBQUUsQ0FBQyxhQUFhLEVBQUcsR0FBRyxFQUFFO1lBQ3JDLElBQUksQ0FBQyxXQUFXLEVBQUUsQ0FBQztRQUN2QixDQUFDLENBQUMsQ0FBQztJQUNQLENBQUM7SUFFRCxNQUFNO1FBQ0YsT0FBTyxDQUNILG9CQUFDLCtCQUFTO1lBQ04sNkJBQUssU0FBUyxFQUFHLHFCQUFxQjtnQkFDbEMsb0JBQUMseUJBQU0sSUFBQyxLQUFLLEVBQUcsdUJBQXVCLEdBQVU7Z0JBQ2pELG9CQUFDLHlDQUFjLElBQUMsUUFBUSxFQUFJLEtBQUssQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxLQUFLLENBQUMsUUFBUSxDQUFDLElBQUksRUFBRSxDQUFDLEdBQUcsQ0FDekUsQ0FDRSxDQUNmLENBQUM7SUFDTixDQUFDO0NBQ0o7QUFyQkQsa0RBcUJDIn0=
 
 /***/ }),
 

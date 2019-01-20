@@ -1,10 +1,8 @@
 .entityItemsExplorer {
-    position: absolute;
-    top: 28px;
-    left: 0%;
-    height: 100%;
     min-width: 200px;
     background-color: #474747f0;
     display: grid;
     grid-template-rows: 30px auto;
+    max-width: 200px;
+    min-height: 1000px;
 }

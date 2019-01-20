@@ -4,6 +4,7 @@ import './EntityItemsExplorer.scss'
 
 import { Header } from '../Header/Header.component';
 import { EntityItemList } from './EntityItemList/EntityItemList.component';
+import { Draggable } from '../Draggable/Draggable.component';
 
 export interface EntityItemsExplorerProps {
     scene: Scene;
@@ -21,10 +22,14 @@ export class EntityItemsExplorer extends React.Component<EntityItemsExplorerProp
     }
 
     render() {
-        return <div className = 'entityItemsExplorer'>
-            <Header label = "Entity Items Explorer"></Header>
-            <EntityItemList entities = {Array.from(this.props.scene.entities.keys())}/>
-        </div>;
+        return (
+            <Draggable>
+                <div className = 'entityItemsExplorer'>
+                    <Header label = "Entity Items Explorer"></Header>
+                    <EntityItemList entities = {Array.from(this.props.scene.entities.keys())}/>
+                </div>
+            </Draggable>
+        );
     }
 }
 
